@@ -21,6 +21,9 @@
 
 \usepackage{appendixnumberbeamer}
 
+\usepackage{color}
+\usepackage{hyperref}
+
 \title{Op zoek naar een goede afstelling van de fiets\\
 met een genetisch algoritme}
 
@@ -48,7 +51,7 @@ met een genetisch algoritme}
   \begin{itemize}
       \item Fiets 
       \item Veel onderdelen
-      \item Optimale afstelling (helm, houding)
+      \item Optimale afstelling 
   \end{itemize}
 \end{frame}
 
@@ -64,7 +67,10 @@ met een genetisch algoritme}
 \begin{frame}
   \frametitle{Genetich algoritme}
   \begin{itemize}
-      \item Intro
+      \item Evolutietheorie
+      \item Natuur nabootsen
+      \item Toepassing op praktisch probleem
+      \item Evolutie versnellen
   \end{itemize}
 \end{frame}
 
@@ -78,55 +84,144 @@ met een genetisch algoritme}
 \begin{frame}
   \frametitle{Individu}
   \begin{itemize}
-      \item DNA
-  \end{itemize}
-  \begin{tabular}{|M | M | M|}
+      \item Oplossing
+      \item Chromosoom
+      \item \begin{tabular}{|M | M | M|}
               \hline
-              1 0 1 0 1 0 \\ \hline
-              1 0 1 0 1 0 \\
-              \hline
+              $stuur_0$ $zadel_1$ $verzet_0$ $\dots$ \\ \hline
             \end{tabular}
+      \item \begin{tabular}{|M|}
+              \hline
+              0 1 0 0 1 0 1 0 1 1 1 0 1 \\ \hline
+            \end{tabular}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Fitness}
   \begin{itemize}
-      \item Vaste omstandigheden
+      \item Correlatie overlevingskans van genen
+      \item Tijdrit vaste omstandigheden
+      \item Vaak schatting of simulatie
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Generatie 0}
+  \frametitle{Populatie}
   \begin{itemize}
-      \item Michiel
+      \item Grootte 
+      \item Generatie 0
+      \item Willekeur
   \end{itemize}
+  \begin{tabular}{|L|M|R|}
+    \hline
+    Ind. & Chromosoom & Fitness (km/u) \\ \hline
+    0 & 1 1 0 1 0 0 0 1 1 1 0 1 &  32 \\ \hline
+    1 & 0 1 1 0 0 1 0 1 1 1 0 1 & 53 \\ \hline
+    2 & 1 1 0 1 0 1 0 1 0 1 1 1 & 50 \\ \hline
+    3 & 1 0 0 1 1 0 0 1 1 0 0 1 & $-5$ \\ \hline
+    4 & 0 1 0 1 0 1 1 1 1 1 0 1 & 40 \\ \hline
+  \end{tabular}
 \end{frame}
 
 \begin{frame}
   \frametitle{Selectie}
   \begin{itemize}
-      \item Michiel
+    \item Twee individu\"en
+    \item Beste versus willekeur
+    \item Voorbeeld roulette selectie:
   \end{itemize}
+  \begin{centering}
+    \begin{tabular}{|L|M|R|}
+      \hline
+      Ind. & Fitness (km/u) & Kans \\ \hline
+      0 & 32 & $32/(32+53+50) \approx 24\%$ \\ \hline
+      1 & 53 & $53/(32+53+50) \approx 39\%$ \\ \hline
+      2 & 50 & $50/(32+53+50) \approx 37\%$ \\ \hline
+    \end{tabular}
+  \end{centering}
 \end{frame}
 
 \begin{frame}
   \frametitle{Combinatie}
   \begin{itemize}
-      \item Crossover
+    \item Reproductie
+    \item Voorbeeld willekeurige combinatie:
   \end{itemize}
+
+  \begin{centering}
+      \begin{tabular}{|L|L|M|R|}
+        \hline
+              Generatie & Ind. & Chromosoom & Fitness (km/u) \\ \hline
+              0 & 0 & {\color{red} 1 1 0 1 0 0 0 1 1 1 0 1} &  32 \\ \hline
+              0 & 1 & {\color{blue} 0 1 1 0 0 1 0 1 1 1 0 1} & 53 \\ \hline
+              1 & 0 & 
+                {\color{red} 0} 
+                {\color{red} 1}
+                {\color{blue} 0}
+                {\color{blue} 1}
+                {\color{blue} 0}
+                {\color{red} 1}
+                {\color{blue} 0}
+                {\color{red} 1}
+                {\color{red} 0}
+                {\color{blue} 1}
+                {\color{blue} 1}
+                {\color{red} 1}
+                & 54 \\ \hline
+      \end{tabular}
+  \end{centering}
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Mutatie}
   \begin{itemize}
-      \item Michiel
+    \item ``Fouten''
+    \item Voorbeeld willekeurige mutatie:
+  \end{itemize}
+
+  \begin{centering}
+      \begin{tabular}{|L|L|M|R|}
+        \hline
+              Generatie & Ind. & Chromosoom & Fitness (km/u) \\ \hline
+              1 & 0 & 
+                {\color{red} 0} 
+                {\color{red} 1}
+                {\color{blue} 0}
+                {\color{blue} 1}
+                {\color{blue} 0}
+                {\color{red} 1}
+                {\color{blue} 0}
+                {\color{red} 1}
+                {\color{red} 0}
+                {\color{blue} 1}
+                {\color{blue} 1}
+                {\color{green} 0}
+                & 54 \\ \hline
+      \end{tabular}
+  \end{centering}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Populatie}
+  \begin{itemize}
+      \item Herhaal selectie, combinatie, mutatie
+      \item Generatie 1
+      \item Elitisme
+      \item Herhaal voor volgende generatie
+      \item Stoppen?
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Mutatie}
+  \frametitle{Conclusie}
   \begin{itemize}
       \item Michiel
+      \item Natuur inspiratiebron
+      \item GA: Balans tussen vrijheid en sturen
+      \item Per onderdeel verschillende opties
+      \item Traveling Salesman Problem demo: \url{https://www.youtube.com/watch?v=efTyb82GEDw}
   \end{itemize}
 \end{frame}
 
